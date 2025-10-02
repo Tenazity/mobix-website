@@ -27,7 +27,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border/20">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -137,7 +137,7 @@ const Footer = () => {
           viewport={{ once: true }}
         >
           <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-            © 2024 MOBIX. All rights reserved.
+            © 2025 MOBIX. All rights reserved.
           </p>
           <div className="flex space-x-6 text-sm">
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">

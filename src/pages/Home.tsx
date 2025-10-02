@@ -70,11 +70,6 @@ const Home = () => {
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button variant="glass" size="lg" asChild>
-                <Link to="/contact">
-                  Get Custom Quote
-                </Link>
-              </Button>
             </motion.div>
           </motion.div>
         </div>
