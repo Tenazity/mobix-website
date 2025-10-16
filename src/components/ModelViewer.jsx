@@ -13,7 +13,7 @@ function Model() {
     }
   });
 
-  return <primitive ref={ref} object={scene} scale={1.5} />;
+  return <primitive ref={ref} object={scene} scale={1.6} />;
 }
 
 export default function ModelViewer() {

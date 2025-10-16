@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'boxicons/css/boxicons.min.css';
 import { motion } from 'framer-motion';
+import ModelSection from './ModelSection';
 
 const Feedback = () => {
 
@@ -82,86 +83,46 @@ const Feedback = () => {
 
 
     return (
-        <div className="max-w-xl ml-[5%] z-10 flex flex-col justify-center">
+      <div className="w-full">
+        <ModelSection
+          id="feedback"
+          modelPath="/food3d.glb"
+          reverse={false}
+          title={<>
             <div>
-                <div
-                    className="relative w-[95%] sm:w-48 h-10
-                          bg-[0_0_900px_20px_#e99b63]
-                          shadow-[0_0_15px_rgba(255,255,255,0.4)]
-                          rounded-full hover:scale-105 transition-all duration-300"
-                >
-                    <div className="absolute inset-[3px] bg-black rounded-full flex items-center justify-center gap-1 text-white">
-                        <i className="bx bx-message-dots"></i>
-                        TESTIMONIALS
-                    </div>
+              <div className='relative w-[95%] sm:w-48 h-10 bg-[0_0_900px_20px_#e99b63] shadow-[0_0_15px_rgba(255,255,255,0.4)] rounded-full hover:scale-105 transition-all duration-300'>
+                <div className='absolute inset-[3px] bg-black rounded-full flex items-center justify-center gap-1 text-white'>
+                  <i className='bx bx-message-dots'></i>
+                  TESTIMONIALS
                 </div>
+              </div>
             </div>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-semibold tracking-wider my-8">
-            CUSTOMER
-                <br />
-                SUCCESS STORIES
+            <h1 className="mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-semibold tracking-wider">
+              CUSTOMER <br /> SUCCESS STORIES
             </h1>
-
-            <p className="text-base sm:text-lg tracking-wider text-gray-400 max-w-[25rem] lg:max-w-[30rem] mb-8">
-            Don't just take our word for it. Hear from real customers who have transformed their food businesses with MOBIX trailers.
-            </p>
-
-            {/* <section className="bg-card/50 py-16"> */}
-        <div className="py-4 container">
-          <div className="max-w-4xl">
-            <AnimateTestimonial testimonial={testimonials[currentIndex]} />
-          </div>
-          {/* Controls: arrows + dots */}
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button
-              aria-label="Previous testimonial"
-              onClick={prev}
-              className="h-9 w-9 flex items-center justify-center rounded-full border border-[#2a2a2a] hover:bg-[#1a1a1a]"
-            >
-              <i className="bx bx-chevron-left text-xl"></i>
-            </button>
-
-            <div className="flex items-center gap-2">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentIndex(i)}
-                  className={`h-2 w-2 rounded-full transition-all ${i === currentIndex ? 'bg-orange-500 w-5' : 'bg-gray-600'}`}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
+          </>}
+          description={"Don't just take our word for it. Hear from real customers who have transformed their food businesses with MOBIX trailers."}
+        >
+          <div className="py-4 container">
+            <div className="max-w-4xl">
+              <AnimateTestimonial testimonial={testimonials[currentIndex]} />
             </div>
-
-            <button
-              aria-label="Next testimonial"
-              onClick={next}
-              className="h-9 w-9 flex items-center justify-center rounded-full border border-[#2a2a2a] hover:bg-[#1a1a1a]"
-            >
-              <i className="bx bx-chevron-right text-xl"></i>
-            </button>
+            <div className="flex items-center justify-center gap-4 mt-6">
+              <button aria-label="Previous testimonial" onClick={prev} className="h-9 w-9 flex items-center justify-center rounded-full border border-[#2a2a2a] hover:bg-[#1a1a1a]">
+                <i className="bx bx-chevron-left text-xl"></i>
+              </button>
+              <div className="flex items-center gap-2">
+                {testimonials.map((_, i) => (
+                  <button key={i} onClick={() => setCurrentIndex(i)} className={`h-2 w-2 rounded-full transition-all ${i === currentIndex ? 'bg-orange-500 w-5' : 'bg-gray-600'}`} aria-label={`Go to testimonial ${i + 1}`} />
+                ))}
+              </div>
+              <button aria-label="Next testimonial" onClick={next} className="h-9 w-9 flex items-center justify-center rounded-full border border-[#2a2a2a] hover:bg-[#1a1a1a]">
+                <i className="bx bx-chevron-right text-xl"></i>
+              </button>
+            </div>
           </div>
-        </div>
-      {/* </section> */}
-
-            {/* <div className="flex gap-4 mt-12">
-                <a
-                    className="border border-[#2a2a2a] py-2 sm:py-3 px-4 sm:px-5 rounded-full sm:text-lg text-sm font-semibold tracking-wider transition-all duration-300 hover:bg-[#1a1a1a]"
-                    href="#contact"
-                >
-                    Contact Us
-                    <i className="bx bx-message-dots"></i>
-                </a>
-
-                <a
-                    className="border border-[#2a2a2a] py-2 sm:py-3 px-8 sm:px-10 rounded-full sm:text-lg text-sm font-semibold tracking-wider transition-all duration-300 hover:bg-[#1a1a1a] bg-gray-300 text-black hover:text-white"
-                    href="#home"
-                >
-                    Back to Home
-                    <i className="bx bx-home"></i>
-                </a>
-            </div> */}
-        </div>
+        </ModelSection>
+      </div>
     )
 
 }

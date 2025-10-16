@@ -9,6 +9,7 @@ import 'aos/dist/aos.css';
 import ModelViewer from './components/ModelViewer.jsx';
 import Feedback from './components/Feedback.jsx';
 import ProductModal from './components/ProductModal.jsx';
+import Products from './components/Products.jsx';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -47,7 +48,7 @@ export default function App() {
       const observer = new IntersectionObserver(observerCallback, observerOptions);
 
       // Observe all sections
-      const sections = ['home', 'about', 'contact', 'feedback'];
+      const sections = ['home', 'about', 'products', 'feedback', 'contact'];
       sections.forEach(sectionId => {
         const element = sectionsRef.current[sectionId];
         if (element) {
@@ -102,6 +103,7 @@ export default function App() {
   };
 
   const handleSectionChange = (section) => {
+    setActiveSection(section);
     scrollToSection(section);
   };
 
@@ -150,16 +152,24 @@ export default function App() {
         <section
           id="about"
           ref={(el) => (sectionsRef.current.about = el)}
-          className="min-h-screen flex items-center justify-start pt-32 pb-20"
+          className="min-h-screen flex items-center justify-start pb-20"
         >
           <About />
+        </section>
+
+        <section
+          id="products"
+          ref={(el) => (sectionsRef.current.products = el)}
+          className="min-h-screen flex items-center justify-start pb-20"
+        >
+          <Products />
         </section>
 
         {/* Feedback Section */}
         <section
           id="feedback"
           ref={(el) => (sectionsRef.current.feedback = el)}
-          className="min-h-screen flex items-center justify-start pt-32 pb-20"
+          className="min-h-screen flex items-center justify-start pb-20"
         >
           <Feedback />
         </section>
@@ -168,7 +178,7 @@ export default function App() {
         <section
           id="contact"
           ref={(el) => (sectionsRef.current.contact = el)}
-          className="min-h-screen flex items-center justify-start pt-32 pb-20"
+          className="min-h-screen flex items-center justify-start pb-20"
         >
           <Contact />
         </section>

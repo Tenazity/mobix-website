@@ -1,6 +1,7 @@
 import 'boxicons/css/boxicons.min.css';
 import { useState, useEffect } from 'react';
 
+
 const Header = ({ activeSection, onSectionChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,6 +26,7 @@ const Header = ({ activeSection, onSectionChange }) => {
   const navItems = [
     { id: 'home', label: 'HOME', href: '#home' },
     { id: 'about', label: 'ABOUT', href: '#about' },
+    { id: 'products', label: 'PRODUCTS', href: '#products' },
     { id: 'feedback', label: 'TESTIMONIALS', href: '#feedback' },
     { id: 'contact', label: 'CONTACT', href: '#contact' }
   ];
@@ -85,7 +87,7 @@ const Header = ({ activeSection, onSectionChange }) => {
       <div className={`fixed top-16 right-0 left-0 p-5 bottom-0 md:hidden z-50 bg-black bg-opacity-85 backdrop-blur-md transition-all duration-300 ${
         isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
-        <nav className='flex flex-col gap-6 items-center mt-20'>
+        <nav className={`flex flex-col gap-6 items-center mt-4 ${isMenuOpen ? 'opacity-100 visible bg-black/90 backdrop-blur-md' : 'opacity-0 invisible'}`}>
           {navItems.map((item, index) => (
             <a
               key={item.id}
@@ -99,7 +101,7 @@ const Header = ({ activeSection, onSectionChange }) => {
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick(item.id);
-              }}
+              }}x
             >
               <span className={`transition-all duration-300 ${
                 activeSection === item.id ? 'text-white border-b-2 border-violet-700 pb-1' : 'text-gray-200'
