@@ -51,7 +51,7 @@ function Contact() {
           </div>
         </div>
         <div className='mb-8 flex flex-col sm:flex-row gap-4 items-center justify-center'>
-          <a href="https://wa.me/2108237057?text=Hello%20I%20want%20to%20know%20more%20about%20your%20services" target="_blank" rel="noopener noreferrer" className='flex items-center justify-center gap-2 w-full sm:w-48 py-3 px-10 rounded-full bg-green-800 text-white font-semibold tracking-wider hover:bg-green-600 transition-all duration-300 whitespace-nowrap'>
+          <a href="https://wa.me/642108237057?text=Hello%20I%20want%20to%20know%20more%20about%20your%20services" target="_blank" rel="noopener noreferrer" className='flex items-center justify-center gap-2 w-full sm:w-48 py-3 px-10 rounded-full bg-green-800 text-white font-semibold tracking-wider hover:bg-green-600 transition-all duration-300 whitespace-nowrap'>
             <i className='bx bxl-whatsapp text-xl'></i>
             Chat on WhatsApp
           </a>
