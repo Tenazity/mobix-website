@@ -42,7 +42,7 @@ const Header = ({ activeSection, onSectionChange }) => {
         }`}
         onClick={() => handleNavClick('home')}
       >
-        <img src="/Image-2.png" alt="Mobix" className='w-60 h-16' />
+        <img src="/Image-2.png" alt="Mobix" className='w-60 h-17' />
       </h1>
       
       <nav 
