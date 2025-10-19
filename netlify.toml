@@ -1,3 +1,2 @@
 [build]
   functions = "netlify/functions"
-  SECRETS_SCAN_ENABLED = "false"
