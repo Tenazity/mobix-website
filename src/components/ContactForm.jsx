@@ -13,7 +13,7 @@ export default function ContactForm() {
 
     try {
       // Replace with your actual API endpoint
-      const response = await fetch("http://localhost:3000/api/contact", {
+      const response = await fetch("https://demo-mobix.netlify.app:3000/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
