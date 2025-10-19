@@ -1,55 +1,37 @@
 import React, { useState } from "react";
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", message: "", "bot-field": "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-
-  const encode = (data) =>
-    Object.keys(data)
-      .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-      .join("&");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("Sending...");
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/.netlify/functions/send-email", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({
-          "form-name": "contact",
-          name: form.name,
-          email: form.email,
-          message: form.message,
-          "bot-field": form["bot-field"],
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
 
       if (response.ok) {
         setStatus("✅ Message sent successfully!");
-        setForm({ name: "", email: "", message: "", "bot-field": "" });
+        setForm({ name: "", email: "", message: "" });
       } else {
-        setStatus("❌ Failed to send message. Please try again.");
+        const text = await response.text();
+        setStatus(`❌ Failed to send message. (${response.status}) ${text || ''}`);
       }
-    } catch {
+    } catch (err) {
       setStatus("❌ Failed to send message. Please try again.");
     }
   };
 
   return (
-    <form
-      name="contact"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-5"
-    >
-      <input type="hidden" name="form-name" value="contact" />
-      <input type="text" name="bot-field" value={form["bot-field"]} onChange={handleChange} hidden readOnly={false} />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
       <input
         type="text"

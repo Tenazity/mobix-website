@@ -1,24 +1,20 @@
-import sgMail from "@sendgrid/mail";
+import nodemailer from "nodemailer";
 
-// Netlify Function: send-email
+// Netlify Function: send-email via Gmail SMTP (Nodemailer)
 // Expects JSON body: { name, email, message }
-// Requires env: SENDGRID_API_KEY, TO_EMAIL (optional; defaults to FROM_EMAIL), FROM_EMAIL
+// Requires env: EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS
+// Optional env: TO_EMAIL (defaults to EMAIL_USER), EMAIL_SECURE ("true" for port 465)
 
 export async function handler(event) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: JSON.stringify({ success: false, message: "Method Not Allowed" }) };
   }
 
-  if (!process.env.SENDGRID_API_KEY) {
-    console.error("Missing SENDGRID_API_KEY env var");
-    return { statusCode: 500, body: JSON.stringify({ success: false, message: "Server not configured" }) };
-  }
+  const { EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS, EMAIL_SECURE } = process.env;
+  const TO_EMAIL = process.env.TO_EMAIL || EMAIL_USER;
 
-  const FROM_EMAIL = process.env.FROM_EMAIL;
-  const TO_EMAIL = process.env.TO_EMAIL || FROM_EMAIL;
-
-  if (!FROM_EMAIL) {
-    console.error("Missing FROM_EMAIL env var");
+  if (!EMAIL_HOST || !EMAIL_PORT || !EMAIL_USER || !EMAIL_PASS) {
+    console.error("Missing required EMAIL_* env vars");
     return { statusCode: 500, body: JSON.stringify({ success: false, message: "Server not configured" }) };
   }
 
@@ -29,21 +25,24 @@ export async function handler(event) {
       return { statusCode: 400, body: JSON.stringify({ success: false, message: "All fields required" }) };
     }
 
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const transporter = nodemailer.createTransport({
+      host: EMAIL_HOST,
+      port: Number(EMAIL_PORT),
+      secure: EMAIL_SECURE === "true" || Number(EMAIL_PORT) === 465,
+      auth: { user: EMAIL_USER, pass: EMAIL_PASS },
+    });
 
-    const msg = {
+    await transporter.sendMail({
+      from: EMAIL_USER,
       to: TO_EMAIL,
-      from: FROM_EMAIL, // Must be a verified Single Sender or domain in SendGrid
       replyTo: email,
       subject: `Contact message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-    };
-
-    await sgMail.send(msg);
+    });
 
     return { statusCode: 200, body: JSON.stringify({ success: true, message: "Email sent successfully" }) };
   } catch (err) {
-    console.error("Send email error:", err?.response?.body || err);
+    console.error("Send email error:", err);
     return { statusCode: 500, body: JSON.stringify({ success: false, message: "Failed to send email" }) };
   }
 }
