@@ -6,7 +6,7 @@ import Contact from './components/Contact.jsx';
 import Spline from '@splinetool/react-spline';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import ModelViewer from './components/ModelViewer.jsx';
+// import ModelViewer from './components/ModelViewer.jsx';
 import Feedback from './components/Feedback.jsx';
 import ProductModal from './components/ProductModal.jsx';
 import Products from './components/Products.jsx';
@@ -131,7 +131,7 @@ export default function App() {
           className='absolute lg:top-0 top-[-20%] bottom-0 lg:left-[25%] sm:left-[-2%] h-full'
           scene="https://prod.spline.design/wtry1qVHFhYij6Zl/scene.splinecode"
         /> */}
-        <ModelViewer />
+        {/* <ModelViewer /> */}
       </div>
 
       {/* Page Sections */}

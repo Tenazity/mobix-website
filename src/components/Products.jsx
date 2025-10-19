@@ -92,22 +92,22 @@ const Products = () => {
       <section className="w-full pt-4 pb-6 md:pt-6 md:pb-8">
         <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
           <div>
-            <div className='relative w-[95%] sm:w-48 h-10 bg-[0_0_900px_20px_#e99b63] shadow-[0_0_15px_rgba(255,255,255,0.4)] rounded-full hover:scale-105 transition-all duration-300'>
+            <div className='relative w-[95%] sm:w-48 h-10 bg-[0_0_900px_20px_#e99b63] shadow-[0_0_15px_rgba(255,255,255,0.4)] rounded-full hover:scale-105 transition-all duration-300' data-aos="fade-right">
               <div className='absolute inset-[3px] bg-black rounded-full flex items-center justify-center gap-1 text-white'>
                 <i className='bx bx-cart-alt'></i>
                 OUR PRODUCTS
               </div>
             </div>
           </div>
-          <h1 className='mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-wider'>
+          <h1 className='mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-wider' data-aos="fade-right">
             Our Food Trailers
           </h1>
-          <p className="text-base sm:text-lg tracking-wider text-gray-400 max-w-xl mt-5">
+          <p className="text-base sm:text-lg tracking-wider text-gray-400 max-w-xl mt-5" data-aos="fade-right">
             We build strong, reliable, and customizable food trailers to help you start your food business with ease. Choose your size and setup — we'll take care of the rest.
           </p>
 
           {/* Quick service badges */}
-          <div className="mt-4 mb-2 space-y-2">
+          {/* <div className="mt-4 mb-2 space-y-2">
             <div className="flex items-center gap-3">
               <i className='bx bx-check-circle text-green-400 text-xl'></i>
               <span className="text-gray-300">WOF, EWOF & REGO Included</span>
@@ -120,7 +120,7 @@ const Products = () => {
               <i className='bx bx-check-circle text-green-400 text-xl'></i>
               <span className="text-gray-300">3m, 4m & 5m Options Available</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -192,9 +192,9 @@ const Products = () => {
 
         {/* Equipment & Customization */}
         <div className="w-full mb-8">
-          <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white text-center" >Equipment & Customization</h3>
-          <p className="text-gray-400 text-center max-w-3xl mx-auto mb-6">Each trailer can be fitted with the setup you need.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white text-center" data-aos="fade-right">Equipment & Customization</h3>
+          <p className="text-gray-400 text-center max-w-3xl mx-auto mb-6" data-aos="fade-right">Each trailer can be fitted with the setup you need.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" data-aos="fade-right">
             {[
               'Grills, fryers, ovens, or fridges',
               'Water and electrical systems',
@@ -230,8 +230,8 @@ const Products = () => {
 
         {/* Why Choose Us */}
         <div className="w-full mb-10">
-          <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white text-center">Why Choose Us</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white text-center" data-aos="fade-right">Why Choose Us</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-aos="fade-right">
             {[
               'Custom-built trailers',
               'Quality materials',

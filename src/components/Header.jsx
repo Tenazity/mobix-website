@@ -1,7 +1,6 @@
 import 'boxicons/css/boxicons.min.css';
 import { useState, useEffect } from 'react';
 
-
 const Header = ({ activeSection, onSectionChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,7 +42,7 @@ const Header = ({ activeSection, onSectionChange }) => {
         }`}
         onClick={() => handleNavClick('home')}
       >
-        Mobix
+        <img src="/Image-2.png" alt="Mobix" className='w-60 h-16' />
       </h1>
       
       <nav 

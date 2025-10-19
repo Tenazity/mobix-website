@@ -1,5 +1,5 @@
-import React, { Suspense, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { Suspense, useRef, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, useGLTF } from "@react-three/drei";
 
 function SpinningModel({ modelPath }) {
@@ -15,7 +15,51 @@ function SpinningModel({ modelPath }) {
   return <primitive ref={groupRef} object={scene} scale={1.4} />;
 }
 
-export default function ModelSection({ modelPath, title, description, reverse = false, id, children, modelHeightClasses = "h-[300px] sm:h-[360px] md:h-[440px] lg:h-[480px]" }) {
+function ResizeHandler() {
+  const { gl, camera, size } = useThree();
+  
+  useEffect(() => {
+    // Immediate sizing to prevent initial oversized appearance
+    const container = gl.domElement.parentElement;
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      if (rect.width && rect.height) {
+        gl.setSize(rect.width, rect.height);
+        camera.aspect = rect.width / rect.height;
+        camera.updateProjectionMatrix();
+      }
+    }
+  }, [gl, camera]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      try {
+        const container = gl.domElement.parentElement;
+        if (container) {
+          const rect = container.getBoundingClientRect();
+          if (rect.width && rect.height) {
+            gl.setSize(rect.width, rect.height);
+            camera.aspect = rect.width / rect.height;
+            camera.updateProjectionMatrix();
+          }
+        }
+      } catch (error) {
+        console.warn('Resize handler error:', error);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [gl, camera]);
+
+  return null;
+}
+
+export default function ModelSection({ modelPath, title, description, reverse = false, id, children, modelHeightClasses = "h-[300px] sm:h-[360px] md:h-[440px] lg:h-[480px]", hideModel = false }) {
+
   return (
     <section id={id} className="w-full pt-4 pb-6 md:pt-6 md:pb-8">
       <div className={`mx-auto w-full max-w-7xl px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center`}>
@@ -39,24 +83,43 @@ export default function ModelSection({ modelPath, title, description, reverse = 
           {children}
         </div>
 
-        {/* Model block */}
-        <div className={`${reverse ? 'md:order-1' : 'md:order-2'} relative ${modelHeightClasses} w-full`}>
-          <div 
-            className="absolute inset-0"
-            data-aos={`${reverse ? 'fade-right' : 'fade-left'}`}
-            data-aos-offset="200"
-            data-aos-easing="ease-in-sine"
-          >
-            <Canvas camera={{ position: [0, 1.2, 2.4], fov: 35 }} dpr={[1, 2]} shadows={false} gl={{ antialias: true }}>
-              <ambientLight intensity={0.6} />
-              <directionalLight position={[5, 5, 5]} intensity={1} />
-              <Suspense fallback={null}>
-                <SpinningModel modelPath={modelPath} />
-                <Environment preset="studio" />
-              </Suspense>
-            </Canvas>
+        {/* Model block - Hide on mobile if hideModel is true, show on desktop */}
+        <div className={`${reverse ? 'md:order-1' : 'md:order-2'} relative ${modelHeightClasses} w-full overflow-hidden ${hideModel ? 'hidden md:block' : ''}`}>
+            <div 
+              className="absolute inset-0"
+              data-aos={`${reverse ? 'fade-right' : 'fade-left'}`}
+              data-aos-offset="200"
+              data-aos-easing="ease-in-sine"
+            >
+              <Canvas 
+                camera={{ position: [0, 1.2, 2.4], fov: 35 }} 
+                dpr={[1, 2]} 
+                shadows={false} 
+                gl={{ antialias: true }}
+                style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  display: 'block'
+                }}
+                onCreated={({ gl, size }) => {
+                  // Force immediate sizing based on container
+                  const container = gl.domElement.parentElement;
+                  if (container) {
+                    const rect = container.getBoundingClientRect();
+                    gl.setSize(rect.width, rect.height);
+                  }
+                }}
+              >
+                <ResizeHandler />
+                <ambientLight intensity={0.6} />
+                <directionalLight position={[5, 5, 5]} intensity={1} />
+                <Suspense fallback={null}>
+                  <SpinningModel modelPath={modelPath} />
+                  <Environment preset="studio" />
+                </Suspense>
+              </Canvas>
+            </div>
           </div>
-        </div>
       </div>
     </section>
   );
