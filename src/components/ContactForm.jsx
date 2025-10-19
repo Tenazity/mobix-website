@@ -1,27 +1,37 @@
 import React, { useState } from "react";
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", "bot-field": "" });
   const [status, setStatus] = useState("");
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
+
+  const encode = (data) =>
+    Object.keys(data)
+      .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("Sending...");
 
     try {
-      // Replace with your actual API endpoint
-      const response = await fetch("https://demo-mobix.netlify.app:3000/api/contact", {
+      const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "contact",
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          "bot-field": form["bot-field"],
+        }),
       });
 
       if (response.ok) {
         setStatus("✅ Message sent successfully!");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", email: "", message: "", "bot-field": "" });
       } else {
         setStatus("❌ Failed to send message. Please try again.");
       }
@@ -31,7 +41,16 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <form
+      name="contact"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-5"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="bot-field" value={form["bot-field"]} onChange={handleChange} hidden readOnly={false} />
+
       <input
         type="text"
         name="name"
@@ -71,8 +90,7 @@ export default function ContactForm() {
       ></textarea>
 
       <button 
-        onClick={handleSubmit}
-        type="button"
+        type="submit"
         className="w-full bg-amber-900 hover:bg-amber-800 text-white py-3 px-6 rounded-xl font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 shadow-lg hover:shadow-xl transform hover:scale-105"
       >
         Send Message
@@ -89,6 +107,6 @@ export default function ContactForm() {
           {status}
         </p>
       )}
-    </div>
+    </form>
   );
 }
