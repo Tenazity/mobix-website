@@ -1,9 +1,11 @@
 import 'boxicons/css/boxicons.min.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Header = ({ activeSection, onSectionChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [mobileVisible, setMobileVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     // Trigger fade-in animation after component mounts
@@ -11,6 +13,26 @@ const Header = ({ activeSection, onSectionChange }) => {
       setIsLoaded(true);
     }, 100);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      const prev = lastScrollY.current || 0;
+      // Only apply hide/show behavior on mobile widths
+      if (window.innerWidth < 768) {
+        if (y > prev && y > 16) {
+          setMobileVisible(false);
+        } else {
+          setMobileVisible(true);
+        }
+      } else {
+        setMobileVisible(true);
+      }
+      lastScrollY.current = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const toggleMenu = () => {
@@ -32,9 +54,10 @@ const Header = ({ activeSection, onSectionChange }) => {
 
   return (
     <header 
-      className={`flex justify-between items-center py-4 px-4 lg:px-20 bg-gradient-to-b from-black/90 via-black/80 to-black/70 backdrop-blur-md border-b border-gray-700/30 transition-all duration-1000 ${
-        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-      }`}
+      className={`flex justify-between items-center py-4 px-4 lg:px-20 bg-gradient-to-b from-black/90 via-black/80 to-black/70 backdrop-blur-md border-b border-gray-700/30 transition-all duration-1000 
+        ${isLoaded ? 'opacity-100' : 'opacity-0'}
+        ${mobileVisible ? 'translate-y-0' : '-translate-y-full'} md:translate-y-0
+        fixed top-0 left-0 right-0 md:static z-50`}
     >
       <h1 
         className={`text-3xl md:text-4xl lg:text-5xl font-light m-0 cursor-pointer text-white transition-all duration-1200 delay-200 ${
