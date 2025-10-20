@@ -10,7 +10,7 @@ export default function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Sending...");
+    // setStatus("Sending...");
 
     try {
       const response = await fetch("/api/send-email", {
