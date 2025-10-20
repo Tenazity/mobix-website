@@ -30,7 +30,6 @@ function Contact() {
           </h1>
         </>}
         description={"Looking for a reliable food trailer for your business? Reach out to Mobix — we design and deliver trailers that move your dream forward."}
-        hideModel={true}
       >
         <div className='space-y-4 mb-4'>
           <div className='flex items-center gap-3'>
@@ -51,7 +50,7 @@ function Contact() {
           </div>
         </div>
         <div className='mb-8 flex flex-col sm:flex-row gap-4 items-center justify-center'>
-          <a href="https://wa.me/642108237057?text=Hello%2C%20I%20am%20interested%20in%20learning%20more%20about%20your%20food%20trailers%20and%20available%20customization%20options." target="_blank" rel="noopener noreferrer" className='flex items-center justify-center gap-2 w-full sm:w-48 py-3 px-10 rounded-full bg-green-800 text-white font-semibold tracking-wider hover:bg-green-600 transition-all duration-300 whitespace-nowrap'>
+          <a href="https://wa.me/642108237057?text=Hello%20I%20want%20to%20know%20more%20about%20your%20services" target="_blank" rel="noopener noreferrer" className='flex items-center justify-center gap-2 w-full sm:w-48 py-3 px-10 rounded-full bg-green-800 text-white font-semibold tracking-wider hover:bg-green-600 transition-all duration-300 whitespace-nowrap'>
             <i className='bx bxl-whatsapp text-xl'></i>
             Chat on WhatsApp
           </a>
@@ -68,7 +67,7 @@ function Contact() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="relative w-full max-w-md">
+          <div className="relative w-full max-w-3xl">
             {/* Modal Card */}
             <div
               className="bg-opacity-95 backdrop-blur-sm rounded-3xl shadow-2xl p-8"
@@ -84,10 +83,11 @@ function Contact() {
                 <X size={24} />
               </button>
 
+
               <h1 className="text-4xl font-bold text-white mb-2 text-center">Get in Touch</h1>
               <p className="text-gray-300 text-center mb-8">We'd love to hear from you. Send us a message!</p>
               
-              <ContactForm />
+              <ContactForm onSuccess={closeModal} />
               
               <p className="text-center text-gray-400 text-sm mt-6">We typically respond within 24 hours</p>
             </div>
