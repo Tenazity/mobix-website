@@ -24,9 +24,19 @@ export default function ContactForm() {
         setForm({ name: "", email: "", message: "" });
         setShowPopover(true);
         try {
-          const module = await import('canvas-confetti');
-          const confetti = module.default || module;
-          confetti({ particleCount: 120, spread: 70, origin: { y: 0.3 } });
+          if (!window.confetti) {
+            await new Promise((resolve, reject) => {
+              const s = document.createElement('script');
+              s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js';
+              s.async = true;
+              s.onload = resolve;
+              s.onerror = reject;
+              document.head.appendChild(s);
+            });
+          }
+          if (window.confetti) {
+            window.confetti({ particleCount: 120, spread: 70, origin: { y: 0.3 } });
+          }
         } catch {}
         setTimeout(() => setShowPopover(false), 1800);
       } else {
