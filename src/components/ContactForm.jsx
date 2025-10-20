@@ -20,31 +20,21 @@ export default function ContactForm() {
       });
 
       if (response.ok) {
-        setStatus("✅ Message sent successfully!");
+        // setStatus("✅ Message sent successfully!");
         setForm({ name: "", email: "", message: "" });
         setShowPopover(true);
         try {
-          if (!window.confetti) {
-            await new Promise((resolve, reject) => {
-              const s = document.createElement('script');
-              s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js';
-              s.async = true;
-              s.onload = resolve;
-              s.onerror = reject;
-              document.head.appendChild(s);
-            });
-          }
-          if (window.confetti) {
-            window.confetti({ particleCount: 120, spread: 70, origin: { y: 0.3 } });
-          }
+          const module = await import('canvas-confetti');
+          const confetti = module.default || module;
+          confetti({ particleCount: 120, spread: 70, origin: { y: 0.3 } });
         } catch {}
         setTimeout(() => setShowPopover(false), 1800);
       } else {
         const text = await response.text();
-        setStatus(`❌ Failed to send message. (${response.status}) ${text || ''}`);
+        // setStatus(`❌ Failed to send message. (${response.status}) ${text || ''}`);
       }
     } catch (err) {
-      setStatus("❌ Failed to send message. Please try again.");
+      // setStatus("❌ Failed to send message. Please try again.");
     }
   };
 
@@ -53,7 +43,7 @@ export default function ContactForm() {
       <div className="rounded-2xl overflow-hidden bg-black min-h-[220px] md:min-h-[380px] md:col-span-7">
         <video
           className="w-full h-full object-cover"
-          src="/contact_vedio.mp4"
+          src="/MicrosoftTeams-video.mp4"
           autoPlay
           loop
           muted
