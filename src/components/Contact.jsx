@@ -16,6 +16,7 @@ function Contact() {
         id="contact"
         modelPath="/foodTrailerobj.glb"
         reverse
+        hideModel={true}
         title={<>
           <div>
             <div className='relative w-[95%] sm:w-48 h-10 bg-[0_0_900px_20px_#e99b63] shadow-[0_0_15px_rgba(255,255,255,0.4)] rounded-full hover:scale-105 transition-all duration-300'>
@@ -56,7 +57,7 @@ function Contact() {
           </a>
           <button 
             onClick={openModal}
-            className='flex items-center justify-center gap-2 w-full sm:w-48 py-3 px-10 rounded-full bg-purple-800 bg-opacity-80 text-white font-semibold tracking-wider hover:bg-purple-700 transition-all duration-300 whitespace-nowrap'
+            className='hidden md:flex items-center justify-center gap-2 w-full sm:w-48 py-3 px-10 rounded-full bg-purple-800 bg-opacity-80 text-white font-semibold tracking-wider hover:bg-purple-700 transition-all duration-300 whitespace-nowrap'
           >
             <i className='bx bx-envelope text-xl'></i>
             Send Email
